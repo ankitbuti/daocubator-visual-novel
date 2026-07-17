@@ -1,0 +1,32 @@
+{
+	"nodes": [
+		{"id":"start","type":"text","text":"## ▶ NEW GAME\nChoose venture:\n🎵 Record Label · 👕 Streetwear · 🎨 Artist Collective\n\n(sets `venture` flag → swaps one Ch2 lesson)","x":-260,"y":-1080,"width":520,"height":160,"color":"3"},
+		{"id":"ch1","type":"file","file":"03 Chapters/Chapter 1 - Genesis Block.md","x":-260,"y":-840,"width":520,"height":400,"color":"4"},
+		{"id":"ch2","type":"file","file":"03 Chapters/Chapter 2 - Token Generation Event.md","x":-260,"y":-360,"width":520,"height":400,"color":"4"},
+		{"id":"ch3","type":"file","file":"03 Chapters/Chapter 3 - Governance Wars.md","x":-260,"y":120,"width":520,"height":400,"color":"4"},
+		{"id":"vector","type":"text","text":"## ⚔️ ATTACK VECTOR (earned, not chosen)\npriority: opsec rushed → 4a · whale in → 4b · mono treasury → 4c · else 4b (reduced)\n\nSpectre ≥ 60 → pre-attack warning scene","x":-260,"y":600,"width":520,"height":170,"color":"1"},
+		{"id":"ch4a","type":"text","text":"### Ch4a — The Phish\nhex-verification set piece → ice phishing\n[[Verify the Hex]] · [[Ice Phishing]]","x":-880,"y":840,"width":380,"height":150,"color":"1"},
+		{"id":"ch4b","type":"text","text":"### Ch4b — The 51%\nAtlas capture attempt: pause / community defense / pay the governance tax\n[[Governance Capture]] · [[Flash Loans and Time-locks]]","x":-190,"y":840,"width":380,"height":150,"color":"1"},
+		{"id":"ch4c","type":"text","text":"### Ch4c — The Spiral\nmarket crash × mono treasury\n[[Treasury Death Spiral]]","x":500,"y":840,"width":380,"height":150,"color":"1"},
+		{"id":"ch5","type":"file","file":"03 Chapters/Chapter 5 - Resolution.md","x":-260,"y":1080,"width":520,"height":400,"color":"4"},
+		{"id":"endings","type":"file","file":"04 Endings/Endings Overview.md","x":-260,"y":1580,"width":520,"height":360,"color":"6"},
+		{"id":"cast","type":"text","text":"## CAST\n[[Maya]] 💠 builder · [[Jordan]] 💗 believer · [[Alex]] 🟠 mercenary\n[[Vera]] 🟣 organizer · [[Spectre]] 🩵 ghost · [[Atlas]] 💛 whale\n\nRelationships = governance capital (gates warnings, votes, compromise paths)","x":420,"y":-840,"width":460,"height":220,"color":"5"},
+		{"id":"stats","type":"text","text":"## STATS (research model)\nVibes · Treasury · Security · Morale · **Burnout**\n\ntoken price ∝ Vibes × Security (cascades)\nBurnout ≥ 60 → consequence hints start lying","x":420,"y":-560,"width":460,"height":190,"color":"5"},
+		{"id":"lessons","type":"file","file":"05 Lessons/Lessons Index.md","x":-880,"y":-560,"width":440,"height":400,"color":"2"}
+	],
+	"edges": [
+		{"id":"e1","fromNode":"start","fromSide":"bottom","toNode":"ch1","toSide":"top"},
+		{"id":"e2","fromNode":"ch1","fromSide":"bottom","toNode":"ch2","toSide":"top","label":"day 30"},
+		{"id":"e3","fromNode":"ch2","fromSide":"bottom","toNode":"ch3","toSide":"top","label":"day 47"},
+		{"id":"e4","fromNode":"ch3","fromSide":"bottom","toNode":"vector","toSide":"top","label":"day 60"},
+		{"id":"e5","fromNode":"vector","fromSide":"left","toNode":"ch4a","toSide":"top","label":"opsec=rushed"},
+		{"id":"e6","fromNode":"vector","fromSide":"bottom","toNode":"ch4b","toSide":"top","label":"whale_in / default"},
+		{"id":"e7","fromNode":"vector","fromSide":"right","toNode":"ch4c","toSide":"top","label":"treasury_mix=mono"},
+		{"id":"e8","fromNode":"ch4a","fromSide":"bottom","toNode":"ch5","toSide":"left"},
+		{"id":"e9","fromNode":"ch4b","fromSide":"bottom","toNode":"ch5","toSide":"top","label":"day 90"},
+		{"id":"e10","fromNode":"ch4c","fromSide":"bottom","toNode":"ch5","toSide":"right"},
+		{"id":"e11","fromNode":"ch5","fromSide":"bottom","toNode":"endings","toSide":"top","label":"×8"},
+		{"id":"e12","fromNode":"cast","fromSide":"left","toNode":"ch1","toSide":"right"},
+		{"id":"e13","fromNode":"lessons","fromSide":"right","toNode":"ch2","toSide":"left","label":"popups"}
+	]
+}

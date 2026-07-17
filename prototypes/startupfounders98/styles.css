@@ -1,0 +1,640 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --pc98-black: #0f0f23;
+    --pc98-dark-blue: #1a1a4e;
+    --pc98-blue: #2929aa;
+    --pc98-cyan: #00aaaa;
+    --pc98-magenta: #aa00aa;
+    --pc98-pink: #ff55ff;
+    --pc98-yellow: #ffff55;
+    --pc98-orange: #ff8844;
+    --pc98-white: #ffffff;
+    --pc98-gray: #555555;
+    --pc98-light-gray: #aaaaaa;
+    --pc98-red: #ff5555;
+    --pc98-green: #55ff55;
+    --pc98-cream: #e8dcc8;
+}
+
+body {
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0a0a1a 100%);
+    min-height: 100vh;
+    font-family: 'VT323', monospace;
+    color: var(--pc98-white);
+    overflow-x: hidden;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 10px;
+}
+
+.crt-frame {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    aspect-ratio: 4/3;
+    background: var(--pc98-black);
+    border: 8px solid #333;
+    border-radius: 20px;
+    box-shadow: 
+        inset 0 0 100px rgba(0, 170, 170, 0.1),
+        0 0 50px rgba(0, 0, 0, 0.8),
+        0 0 100px rgba(41, 41, 170, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* Menu Screen */
+.menu-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #0a0a2e 0%, #1a1a4e 50%, #0a0a2e 100%);
+    padding: 20px;
+}
+
+.title-container {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.game-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: clamp(24px, 5vw, 48px);
+    color: var(--pc98-cyan);
+    text-shadow: 
+        4px 4px 0 var(--pc98-magenta),
+        -2px -2px 0 var(--pc98-blue);
+    letter-spacing: 4px;
+    animation: titlePulse 2s ease-in-out infinite;
+}
+
+.title-sub {
+    color: var(--pc98-pink);
+    margin-top: 10px;
+}
+
+.title-year {
+    font-family: 'Press Start 2P', cursive;
+    font-size: clamp(16px, 3vw, 28px);
+    color: var(--pc98-yellow);
+    margin-top: 15px;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes titlePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.5; }
+}
+
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.menu-button {
+    font-family: 'Press Start 2P', cursive;
+    font-size: clamp(12px, 2vw, 16px);
+    padding: 15px 30px;
+    background: transparent;
+    border: 3px solid var(--pc98-cyan);
+    color: var(--pc98-cyan);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+}
+
+.menu-button:hover {
+    background: var(--pc98-cyan);
+    color: var(--pc98-black);
+    box-shadow: 0 0 20px var(--pc98-cyan);
+}
+
+.menu-button.small {
+    font-size: clamp(8px, 1.5vw, 12px);
+    padding: 10px 20px;
+    border-color: var(--pc98-gray);
+    color: var(--pc98-gray);
+}
+
+.menu-button.small:hover {
+    background: var(--pc98-gray);
+    color: var(--pc98-black);
+    box-shadow: 0 0 10px var(--pc98-gray);
+}
+
+.endings-display {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.endings-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    color: var(--pc98-light-gray);
+    margin-bottom: 10px;
+}
+
+.endings-list {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.endings-list .locked {
+    filter: grayscale(100%);
+    opacity: 0.3;
+}
+
+.endings-list .unlocked {
+    animation: unlockGlow 2s ease-in-out infinite;
+}
+
+@keyframes unlockGlow {
+    0%, 100% { filter: drop-shadow(0 0 5px var(--pc98-yellow)); }
+    50% { filter: drop-shadow(0 0 15px var(--pc98-yellow)); }
+}
+
+.menu-footer {
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    color: var(--pc98-gray);
+    font-style: italic;
+}
+
+/* Game Header */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 15px;
+    background: linear-gradient(90deg, var(--pc98-dark-blue), var(--pc98-blue), var(--pc98-dark-blue));
+    border-bottom: 3px solid var(--pc98-cyan);
+}
+
+.header-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: clamp(8px, 1.5vw, 12px);
+    color: var(--pc98-yellow);
+}
+
+.header-chapter {
+    font-family: 'VT323', monospace;
+    font-size: clamp(14px, 2vw, 18px);
+    color: var(--pc98-cyan);
+}
+
+.header-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.header-btn {
+    background: transparent;
+    border: 2px solid var(--pc98-cyan);
+    color: var(--pc98-cyan);
+    padding: 5px 10px;
+    cursor: pointer;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    transition: all 0.2s;
+}
+
+.header-btn:hover {
+    background: var(--pc98-cyan);
+    color: var(--pc98-black);
+}
+
+/* Main Game Area */
+.game-main {
+    flex: 1;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+}
+
+.portrait-area {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.background-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.6;
+    filter: contrast(1.2) saturate(0.8);
+}
+
+.character-portrait {
+    position: relative;
+    z-index: 10;
+    max-height: 80%;
+    max-width: 60%;
+    image-rendering: pixelated;
+    filter: drop-shadow(4px 4px 0 var(--pc98-black));
+    animation: portraitIdle 3s ease-in-out infinite;
+}
+
+@keyframes portraitIdle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* Stats Panel */
+.stats-panel {
+    width: 180px;
+    background: rgba(15, 15, 35, 0.9);
+    border-left: 3px solid var(--pc98-magenta);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+}
+
+.stat-item {
+    border-bottom: 1px dashed var(--pc98-gray);
+    padding-bottom: 8px;
+}
+
+.stat-label {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 8px;
+    color: var(--pc98-light-gray);
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    color: var(--pc98-white);
+}
+
+.stat-value.money {
+    color: var(--pc98-green);
+    font-size: 18px;
+}
+
+.stat-value.small {
+    font-size: 14px;
+    color: var(--pc98-cyan);
+}
+
+/* Dialogue Area */
+.dialogue-area {
+    background: rgba(15, 15, 35, 0.95);
+    border-top: 4px solid var(--pc98-cyan);
+    padding: 15px 20px;
+    min-height: 120px;
+    cursor: pointer;
+    position: relative;
+}
+
+.speaker-name {
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    background: var(--pc98-magenta);
+    color: var(--pc98-white);
+    padding: 4px 15px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    border: 2px solid var(--pc98-pink);
+}
+
+.dialogue-box {
+    max-height: 80px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.dialogue-text {
+    font-family: 'VT323', monospace;
+    font-size: clamp(18px, 2.5vw, 24px);
+    line-height: 1.4;
+    color: var(--pc98-white);
+    margin-bottom: 8px;
+}
+
+.cursor {
+    color: var(--pc98-cyan);
+    animation: cursorBlink 0.5s step-end infinite;
+}
+
+@keyframes cursorBlink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.advance-indicator {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    font-family: 'VT323', monospace;
+    font-size: 14px;
+    color: var(--pc98-cyan);
+    animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+}
+
+/* Input Area */
+.input-area {
+    background: rgba(15, 15, 35, 0.95);
+    border-top: 4px solid var(--pc98-yellow);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.input-prompt {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    color: var(--pc98-yellow);
+}
+
+.name-input {
+    font-family: 'VT323', monospace;
+    font-size: 24px;
+    padding: 10px 20px;
+    background: var(--pc98-black);
+    border: 3px solid var(--pc98-cyan);
+    color: var(--pc98-cyan);
+    text-align: center;
+    width: 200px;
+    outline: none;
+}
+
+.name-input:focus {
+    border-color: var(--pc98-pink);
+    box-shadow: 0 0 20px var(--pc98-pink);
+}
+
+.submit-button {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    padding: 10px 30px;
+    background: var(--pc98-cyan);
+    border: none;
+    color: var(--pc98-black);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.submit-button:hover {
+    background: var(--pc98-pink);
+    box-shadow: 0 0 20px var(--pc98-pink);
+}
+
+/* Choices Area */
+.choices-area {
+    background: rgba(15, 15, 35, 0.95);
+    border-top: 4px solid var(--pc98-yellow);
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.choice-button {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    background: transparent;
+    border: 2px solid var(--pc98-cyan);
+    color: var(--pc98-white);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.choice-button:hover {
+    background: var(--pc98-cyan);
+    color: var(--pc98-black);
+    transform: translateX(10px);
+    box-shadow: 0 0 15px var(--pc98-cyan);
+}
+
+.choice-number {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    color: var(--pc98-yellow);
+    min-width: 30px;
+}
+
+.choice-button:hover .choice-number {
+    color: var(--pc98-black);
+}
+
+.choice-text {
+    font-family: 'VT323', monospace;
+    font-size: clamp(16px, 2vw, 20px);
+}
+
+/* Wisdom Modal */
+.wisdom-modal {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #0a0a2e 0%, #2a1a4e 50%, #0a0a2e 100%);
+    padding: 40px;
+    text-align: center;
+}
+
+.wisdom-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    animation: wisdomPulse 2s ease-in-out infinite;
+}
+
+@keyframes wisdomPulse {
+    0%, 100% { transform: scale(1) rotate(-5deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+}
+
+.wisdom-text {
+    font-family: 'Press Start 2P', cursive;
+    font-size: clamp(10px, 1.5vw, 14px);
+    color: var(--pc98-yellow);
+    max-width: 500px;
+    line-height: 2;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 0 var(--pc98-black);
+}
+
+.wisdom-button {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    padding: 15px 40px;
+    background: var(--pc98-magenta);
+    border: 3px solid var(--pc98-pink);
+    color: var(--pc98-white);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.wisdom-button:hover {
+    background: var(--pc98-pink);
+    box-shadow: 0 0 30px var(--pc98-pink);
+}
+
+/* Footer */
+.app-footer {
+    margin-top: 15px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 8px;
+    color: var(--pc98-gray);
+}
+
+.app-footer a {
+    color: var(--pc98-cyan);
+    text-decoration: none;
+}
+
+.app-footer a:hover {
+    color: var(--pc98-pink);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .crt-frame {
+        aspect-ratio: 3/4;
+        border-width: 4px;
+        border-radius: 10px;
+    }
+
+    .stats-panel {
+        display: none;
+    }
+
+    .game-header {
+        padding: 5px 10px;
+    }
+
+    .header-title {
+        display: none;
+    }
+
+    .dialogue-area {
+        min-height: 100px;
+        padding: 12px 15px;
+    }
+
+    .dialogue-box {
+        max-height: 60px;
+    }
+
+    .choices-area {
+        padding: 10px 15px;
+    }
+
+    .choice-button {
+        padding: 10px 15px;
+    }
+
+    .menu-button {
+        padding: 12px 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-container {
+        padding: 5px;
+    }
+
+    .crt-frame {
+        border-width: 3px;
+    }
+
+    .title-container {
+        margin-bottom: 20px;
+    }
+
+    .menu-options {
+        gap: 10px;
+    }
+
+    .choice-button {
+        padding: 8px 12px;
+        gap: 10px;
+    }
+
+    .choice-number {
+        min-width: 20px;
+        font-size: 10px;
+    }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--pc98-black);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--pc98-cyan);
+    border: 1px solid var(--pc98-blue);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--pc98-pink);
+}
