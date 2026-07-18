@@ -36,7 +36,7 @@ label ch3_governance:
 
     ## 3.3 The delegation debate (vault 3.3)
     scene bg factionmap with fade
-    narrator "Turnout keeps falling. Someone proposes delegation — 'liquid democracy.' Someone else livestreams a pie chart: in comparable DAOs, the top 10% of voters hold 76.2% of the power."
+    narrator "Turnout keeps falling. Someone proposes delegation — 'liquid democracy.' Someone else livestreams a pie chart: in comparable DAOs, the top 10%% of voters hold 76.2%% of the power."
     menu:
         "Open delegation. Participation over purity.":
             $ adjust(vibes=+5)

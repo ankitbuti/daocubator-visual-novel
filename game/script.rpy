@@ -142,7 +142,7 @@ label start:
     scene bg blockchain with fade
     narrator "2025. The age of DAOs has truly begun — again — for the third or fourth time."
     narrator "NounsDAO. MakerDAO. The Aragon crisis. Build Finance. Beanstalk. You watched them all rise, and you read every post-mortem on the way down."
-    narrator "Roughly 65% of ventures like the one you're about to start die from the inside. Not the market. The people. The structure. The deferred conversations."
+    narrator "Roughly 65%% of ventures like the one you're about to start die from the inside. Not the market. The people. The structure. The deferred conversations."
     narrator "You're going to be different. Everyone says that."
     python:
         player_name = renpy.input("What do they call you, founder?", default="Kai", length=20).strip() or "Kai"

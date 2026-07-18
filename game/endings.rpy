@@ -94,7 +94,7 @@ label ending_bureaucracy:
     $ persistent.endings_seen.add("bureaucracy")
     scene bg discord with fade
     narrator "🐌 ENDING: DEATH BY DEMOCRACY"
-    narrator "Forty-seven proposals pending. Approving the new logo took three months and a constitutional amendment. Turnout on the amendment: 4.1%."
+    narrator "Forty-seven proposals pending. Approving the new logo took three months and a constitutional amendment. Turnout on the amendment: 4.1%%."
     narrator "Nobody attacked you. Nobody had to. The collective became a beautifully-governed ghost town — perfect process, no pulse."
     call vera_closing("stern")
     call ending_recap

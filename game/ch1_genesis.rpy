@@ -81,7 +81,7 @@ label ch1_genesis:
     scene bg conference with fade
     show alex calculating at right with dissolve
     a "I've been reading your tokenomics draft. Alex — DeFi background, treasury management."
-    a "You're leaving 40% unallocated? Bold choice. ...Or reckless. Depends on your vesting schedule."
+    a "You're leaving 40%% unallocated? Bold choice. ...Or reckless. Depends on your vesting schedule."
     menu:
         "\"Come run the treasury. Show me how to do it right.\"":
             $ adjust(alex=+10)

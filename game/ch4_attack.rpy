@@ -99,9 +99,9 @@ label ch4b_fiftyone:
     scene bg blockchain with fade
     if not maya_gone:
         show maya alarmed at left with dissolve
-        m "RED ALERT. One entity just crossed 45% of governance tokens. Eleven wallets, one owner."
+        m "RED ALERT. One entity just crossed 45%% of governance tokens. Eleven wallets, one owner."
     else:
-        narrator "The alert comes from a community dashboard, hours late — the person who would have watched it in real time doesn't work here anymore. One entity holds 45%."
+        narrator "The alert comes from a community dashboard, hours late — the person who would have watched it in real time doesn't work here anymore. One entity holds 45%%."
     if alex_loyal:
         show alex sincere at right with dissolve
         a "It's Atlas. I'd know that gas-price signature anywhere. You have maybe a day before the proposal drops. Use it."
@@ -143,10 +143,10 @@ label ch4b_fiftyone:
 label ch4c_spiral:
     ## 4c.1 The crash
     scene bg blockchain with fade
-    narrator "No attacker this time. Just weather: the market drops 40% in a week, and your token — being 90% of your treasury — drops harder."
+    narrator "No attacker this time. Just weather: the market drops 40%% in a week, and your token — being 90%% of your treasury — drops harder."
     if not maya_gone:
         show maya tired at left with dissolve
-        m "Treasury purchasing power is down 70%. Payroll is Thursday. I want it on record that I said the word 'barbell' in this room."
+        m "Treasury purchasing power is down 70%%. Payroll is Thursday. I want it on record that I said the word 'barbell' in this room."
     narrator "The spiral logic is simple and airless: you need cash → you sell your token → the price falls → you need more cash."
 
     ## 4c.2 The choice

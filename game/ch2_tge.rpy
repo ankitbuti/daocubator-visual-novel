@@ -15,7 +15,7 @@ label ch2_tge:
     show maya focused at left
     show alex calculating at right
     with dissolve
-    a "Treasury allocation. Option one: hold 90% in our own token. Number goes up, we all win, maximum alignment."
+    a "Treasury allocation. Option one: hold 90%% in our own token. Number goes up, we all win, maximum alignment."
     m "Option two: the barbell. 30 to 50 percent in boring stables. We pay swap fees now and get to exist during our first bad month."
     menu:
         "\"Ninety percent native. We bet on ourselves.\"":
@@ -95,7 +95,7 @@ label ch2_tge:
     else:
         scene bg discord with fade
         show jordan hyped at right with dissolve
-        j "THE DROP WENT VIRAL. We're at 300% of goal and climbing! This is the best thing that has ever happened to us!"
+        j "THE DROP WENT VIRAL. We're at 300%% of goal and climbing! This is the best thing that has ever happened to us!"
         show maya alarmed at left with dissolve
         m "Unit cost at promised price: negative fifteen per unit at this scale. Every new backer buys us a bigger hole. This is the worst thing that has ever happened to us."
         menu:
@@ -168,6 +168,6 @@ label ch2_tge:
 
     ## 2.9 Chapter close
     if treasury_mix == "mono":
-        narrator "The chart is beautiful tonight. 90% of your treasury agrees with itself. {i}(Remember this candle.){/i}"
+        narrator "The chart is beautiful tonight. 90%% of your treasury agrees with itself. {i}(Remember this candle.){/i}"
     call chapter_close(47, ch_open_vibes)
     jump ch3_governance
