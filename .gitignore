@@ -27,3 +27,11 @@
 
 # Ren'Py per-run log in the game dir
 /game/log.txt
+
+# Generated Ren'Py web build (regenerate: see WEB.md). Large WASM/data blobs.
+/web-build/
+# Stray test/log artifacts
+/autotest_*.txt
+/game/_autotest.rpy
+/web-build.zip
+/*.zip
