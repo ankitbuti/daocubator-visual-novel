@@ -29,7 +29,7 @@ label ch3_governance:
             $ adjust(vibes=-15, security=+5, vera=-10)
             $ mark("Vetoed Proposal #17 with founder powers")
             narrator "The proposal dies instantly. So does something less visible. 'Decentralized*' — the asterisk is yours now."
-        "Compromise: voluntary 10% founder burn to the community." if rel_vera >= 40:
+        "Compromise: voluntary 10%% founder burn to the community." if rel_vera >= 40:
             $ adjust(vibes=+15, treasury=-10, vera=+10, maya=-5)
             $ mark("Voluntarily burned 10% of founder tokens")
             v "Losing a little on purpose so you can't lose everything by force. That's the oldest trick organized people have."

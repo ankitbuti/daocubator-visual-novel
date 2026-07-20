@@ -35,7 +35,7 @@ label ch1_genesis:
             $ adjust(maya=+12)
             show maya proud
             m "Correct first question."
-            m "Decentralization is a spectrum, not a virtue. Pure democracy sounds great until your first 51% attack. Smart governance is knowing {i}when{/i} to decentralize."
+            m "Decentralization is a spectrum, not a virtue. Pure democracy sounds great until your first 51%% attack. Smart governance is knowing {i}when{/i} to decentralize."
 
     ## 1.3 The equity conversation — KEYSTONE (vault 1.3)
     show maya focused
@@ -142,7 +142,7 @@ label ch1_genesis:
         "📊 Merit-weighted by contribution":
             $ adjust(morale=-5, vibes=+5)
             narrator "Fair in theory. The spreadsheet measuring 'contribution' becomes the most political document you own."
-        "🌊 60% to the community treasury":
+        "🌊 60%% to the community treasury":
             $ adjust(vibes=+15, treasury=+20)
             $ mark("Gave the community 60% of the token supply")
             narrator "The community cheers. Alex does math quietly, like a person at a funeral."

@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
-"""Catch the Ren'Py literal-percent crash across ALL dialogue branches.
+"""Catch literal-percent bugs in Ren'Py displayed text, across ALL branches.
 
-Ren'Py's `say` path runs `what % tag_quoting_dict`, so a literal `%` in a
-say string (e.g. "65% of ventures") is parsed as a format code and crashes
-at runtime with a TypeError — something `renpy lint` does NOT catch. A
-literal percent must be written `%%`.
+With config.old_substitutions on (Ren'Py's default), `s % tag_quoting_dict`
+is applied to BOTH say statements (sayexports.py) and menu choices
+(menuexports.py). A literal `%` there is read as a format code: it either
+crashes (e.g. `% o`) OR silently garbles (e.g. `% a` -> a valid %a/ascii
+conversion that prints "<TagQuotingDict object ...>"). `renpy lint` catches
+neither. The only safe literal percent is `%%`.
 
-This scans every say statement in game/*.rpy (so it covers every branch,
-not just one playthrough) and flags any string that would fail the `%`
-formatting. With --fix it rewrites the offending strings in place.
+Rule: a displayed string is safe iff it contains no lone `%` — i.e. after
+removing every `%%` pair, no `%` remains. (This game uses `[...]` for
+interpolation and never intentional %-format specs, so every `%` is literal.)
+
+Screen `text` statements do NOT apply `%` formatting, so this only targets
+say statements and menu choices — never screen text (e.g. lessons.rpy data).
 
 Usage:
   python3 scripts/lint_dialogue.py         # report (exit 1 if problems)
@@ -19,25 +24,21 @@ import os
 import re
 import sys
 
-# Say-statement speaker tokens defined in game/script.rpy.
 SPEAKERS = ["narrator", "pc", "mod", "maya", "jordan", "alex", "vera",
             "spectre", "atlas", "m", "j", "a", "v", "s", "w"]
-SAY_RE = re.compile(
-    r'^(\s*)(' + "|".join(SPEAKERS) + r')(\s+)'
-    r'("(?:[^"\\]|\\.)*")'          # the (first) quoted string
-    r'(.*)$'
-)
+STR = r'"(?:[^"\\]|\\.)*"'
+
+# A say statement:  <speaker> "..."  [extra]
+SAY_RE = re.compile(r'^(\s*)(' + "|".join(SPEAKERS) + r')(\s+)(' + STR + r')(.*)$')
+# A menu choice / caption:  "..."[ if cond]:   (string first, line ends in a colon)
+MENU_RE = re.compile(r'^(\s*)(' + STR + r')(\s*(?:if\s+.*?)?:)\s*$')
 
 GAME_DIR = os.path.join(os.path.dirname(__file__), "..", "game")
 
 
-def formatting_fails(inner):
-    """True if this string would raise when Ren'Py runs `s % tag_quoting_dict`."""
-    try:
-        inner % {}
-        return False
-    except (TypeError, ValueError, KeyError):
-        return True
+def unsafe(inner):
+    """True if the string has a lone % (would crash or garble under % formatting)."""
+    return "%" in inner.replace("%%", "")
 
 
 def escape(inner):
@@ -53,33 +54,39 @@ def main():
         lines = open(path, encoding="utf-8").read().split("\n")
         changed = False
         for i, line in enumerate(lines):
-            mobj = SAY_RE.match(line)
-            if not mobj:
+            m = SAY_RE.match(line)
+            kind = "say"
+            if not m:
+                m = MENU_RE.match(line)
+                kind = "menu"
+            if not m:
                 continue
-            literal = mobj.group(4)          # includes surrounding quotes
-            inner = literal[1:-1]
-            if not formatting_fails(inner):
+            # group index of the string literal differs per pattern
+            gi = 4 if kind == "say" else 2
+            inner = m.group(gi)[1:-1]
+            if not unsafe(inner):
                 continue
             problems += 1
             rel = os.path.relpath(path, os.path.join(GAME_DIR, ".."))
             if fix:
-                new_inner = escape(inner)
-                lines[i] = (mobj.group(1) + mobj.group(2) + mobj.group(3) +
-                            '"' + new_inner + '"' + mobj.group(5))
+                newlit = '"' + escape(inner) + '"'
+                g = list(m.groups())
+                g[gi - 1] = newlit
+                lines[i] = "".join(x for x in g if x is not None)
                 changed = True
                 fixed += 1
-                print(f"FIXED  {rel}:{i+1}")
+                print(f"FIXED  {rel}:{i+1}  ({kind})")
             else:
-                print(f"CRASH  {rel}:{i+1}  {line.strip()[:80]}")
+                print(f"BUG    {rel}:{i+1}  ({kind})  {line.strip()[:80]}")
         if fix and changed:
             open(path, "w", encoding="utf-8").write("\n".join(lines))
     if fix:
         print(f"\n{fixed} string(s) escaped.")
         return 0
     if problems:
-        print(f"\n{problems} say string(s) will crash at runtime. Run with --fix.")
+        print(f"\n{problems} displayed string(s) have a lone % (crash or garble). Run --fix.")
         return 1
-    print("All say statements are percent-safe.")
+    print("All say + menu strings are percent-safe.")
     return 0
 
 
