@@ -13,12 +13,12 @@ Status legend: ⬜ needed · 🟨 placeholder generated (scripted PIL, in `game/
 
 | Character | Expressions | Status |
 |-----------|-------------|--------|
-| Maya | neutral, focused, tired, proud, alarmed | 🟨 (neutral placeholder ×5 tints) |
-| Jordan | neutral, hyped, hurt, determined, exhausted | 🟨 |
-| Alex | neutral, smirk, calculating, defensive, sincere | 🟨 |
-| Vera | neutral, wry, stern, warm | 🟨 |
-| Spectre | hooded-neutral, typing-glow, alert, almost-vulnerable | 🟨 |
-| Atlas | neutral, generous, guarded, predatory-calm | 🟨 |
+| Maya | neutral, focused, tired, proud, alarmed | 🎨 neutral live (standing in for 5 expressions) |
+| Jordan | neutral, hyped, hurt, determined, exhausted | 🟨 (prompt ready) |
+| Alex | neutral, smirk, calculating, defensive, sincere | 🟨 (prompt ready) |
+| Vera | neutral, wry, stern, warm | 🟨 (prompt ready) |
+| Spectre | hooded-neutral, typing-glow, alert, almost-vulnerable | 🟨 (prompt ready) |
+| Atlas | neutral, generous, guarded, predatory-calm | 🟨 (prompt ready) |
 
 = 28 final sprite images (6 bases × expressions).
 
@@ -26,14 +26,14 @@ Status legend: ⬜ needed · 🟨 placeholder generated (scripted PIL, in `game/
 
 | BG | Used in | Status |
 |----|---------|--------|
-| coworking space | Ch1 | 🟨 |
-| discord server (stylized) | Ch1–5 | 🟨 |
-| conference hall | Ch2, Ch5 | 🟨 |
-| late-night apartment | Ch3, Ch5 | 🟨 |
-| blockchain abstract (nodes, cyan/magenta) | TGE, Ch4 | 🟨 |
-| rooftop (dawn) | Ch5 endings | 🟨 |
-| wallet/signing UI close-up | Ch4a set piece | 🟨 |
-| faction map / governance dashboard | Ch3.8 | 🟨 |
+| coworking space | Ch1 | 🎨 mixed media (v1 generated) |
+| discord server (stylized) | Ch1–5 | 🎨 mixed media (v1 generated) |
+| conference hall | Ch2, Ch5 | 🎨 mixed media (v1 generated) |
+| late-night apartment | Ch3, Ch5 | 🎨 mixed media (v1 generated) |
+| blockchain abstract (nodes, cyan/magenta) | TGE, Ch4 | 🎨 mixed media (v1 generated) |
+| rooftop (dawn) | Ch5 endings | 🎨 mixed media (v1 generated) |
+| wallet/signing UI close-up | Ch4a set piece | 🎨 mixed media (v1 generated) |
+| faction map / governance dashboard | Ch3.8 | 🎨 mixed media (v1 generated) |
 
 ## UI / GUI
 
