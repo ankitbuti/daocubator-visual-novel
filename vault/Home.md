@@ -36,6 +36,7 @@ Every major choice teaches a documented failure mode from the [[Research Digest]
 
 - [[Sync Workflow]] — how vault ↔ Google Doc ↔ Ren'Py stay in sync
 - [[Renpy Mapping]] — how vault notes map to `.rpy` files
+- [[Plain Mode Style Guide]] — how to write the ELI5 / ESL script variant
 - [[Asset List]] — every asset needed, placeholder status
 - [[Art Style Guide]] — PC-98 palette and rendering rules
 - [[Prototype Archaeology]] — what we mined from the three web prototypes

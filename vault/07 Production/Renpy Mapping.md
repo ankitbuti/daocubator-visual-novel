@@ -14,7 +14,8 @@ How vault design maps onto `game/` (Ren'Py 8.5):
 | [[Chapter 1 - Genesis Block]] … | `ch1_genesis.rpy` … `ch5_resolution.rpy` (one file per chapter; scene cards → labels, `# vault: 1.3` comments) |
 | [[Endings Overview]] | `endings.rpy` — `label compute_ending` mirrors the trigger table order |
 | `05 Lessons/*` | `lessons.rpy` — one `LESSONS["id"]` entry per note + `lesson` screen |
-| dao25 glossary + new terms | `lessons.rpy` — `CODEX` dict + codex screen |
+| [[Game Systems]] Glossary (dao25 glossary + new terms) | `glossary.rpy` — `GLOSSARY` list, dialogue auto-linker (`config.say_menu_text_filter`), unlock callback, `glossary` screen |
+| [[Game Systems]] Plain Mode · [[Plain Mode Style Guide]] | `tl/plain/*.rpy` — Ren'Py language `plain`; experience picker screen in `script.rpy` |
 | [[Art Style Guide]] palette | `placeholders.rpy` + `gui.rpy` color overrides |
 | [[Asset List]] placeholders | `game/images/` PNGs from `scripts/generate_placeholders.py` |
 
@@ -24,4 +25,6 @@ How vault design maps onto `game/` (Ren'Py 8.5):
 - Stat changes only via `adjust(vibes=+10, burnout=+5)` so clamping/cascade rules live in one place.
 - Lesson popups: `call lesson("equal_split")` — id = lesson note's slug.
 - Flags exactly as named in [[Game Systems]].
+- Glossary: write terms naturally in dialogue — `glossary.rpy` links them automatically. New jargon? Add an entry (or a `match` pattern) and run `python3 scripts/check_glossary.py`.
+- Editing an original line orphans its plain-mode translation (it falls back to the original). Re-run `renpy.sh . translate plain` and rewrite the new stub.
 - Run/lint: `~/renpy-8.5.0-sdk/renpy.sh . lint` and `~/renpy-8.5.0-sdk/renpy.sh .` from repo root.

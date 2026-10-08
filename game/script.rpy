@@ -91,12 +91,22 @@ screen stats_hud():
         padding (20, 8)
         hbox:
             spacing 28
-            text "DAY [day]" color "#FFFFFF" size 22
-            text "VIBES [vibes]" color "#FF55FF" size 22
-            text "TREASURY [treasury]Ξ" color "#FFFF55" size 22
-            text "SECURITY [security]" color "#55FF55" size 22
-            text "MORALE [morale]" color "#55FFFF" size 22
-            text "BURNOUT [burnout]" color ("#FF5555" if burnout >= 60 else "#AAAAAA") size 22
+            text "DAY [day]" color "#FFFFFF" size 22 yalign 0.5
+            ## Each stat opens its glossary entry (glossary.rpy).
+            textbutton "VIBES [vibes]" action Function(gloss_hyperlink, "vibes") style "hud_stat" text_color "#FF55FF"
+            textbutton "TREASURY [treasury]Ξ" action Function(gloss_hyperlink, "treasury") style "hud_stat" text_color "#FFFF55"
+            textbutton "SECURITY [security]" action Function(gloss_hyperlink, "security") style "hud_stat" text_color "#55FF55"
+            textbutton "MORALE [morale]" action Function(gloss_hyperlink, "morale") style "hud_stat" text_color "#55FFFF"
+            textbutton "BURNOUT [burnout]" action Function(gloss_hyperlink, "burnout") style "hud_stat" text_color ("#FF5555" if burnout >= 60 else "#AAAAAA")
+
+style hud_stat is button
+style hud_stat_text is button_text
+style hud_stat:
+    padding (0, 0)
+    background None
+style hud_stat_text:
+    size 22
+    hover_underline True
 
 ################################################################################
 ## Chapter close bookkeeping — cascade rule + burnout gate
@@ -140,6 +150,13 @@ label main_menu:
 label start:
     $ pivotal = []
     scene bg blockchain with fade
+
+    ## Experience picker — vault: 01 Overview/Game Systems.md (Plain Mode)
+    ## "plain" is a Ren'Py language: game/tl/plain/ holds the ELI5/ESL script.
+    call screen experience_select
+    $ renpy.change_language("plain" if _return == "plain" else None)
+    narrator "{color=#55FF55}TIP:{/color} {color=#FFFF55}{u}Yellow words{/u}{/color} are Glossary terms — click one to look it up. New terms unlock as you meet them, and entries link to more entries. Press G any time."
+
     narrator "2025. The age of DAOs has truly begun — again — for the third or fourth time."
     narrator "NounsDAO. MakerDAO. The Aragon crisis. Build Finance. Beanstalk. You watched them all rise, and you read every post-mortem on the way down."
     narrator "Roughly 65%% of ventures like the one you're about to start die from the inside. Not the market. The people. The structure. The deferred conversations."
@@ -148,3 +165,57 @@ label start:
         player_name = renpy.input("What do they call you, founder?", default="Kai", length=20).strip() or "Kai"
     show screen stats_hud
     jump ch1_genesis
+
+################################################################################
+## Experience picker (shown at Start). Returns "plain" or "classic".
+
+screen experience_select():
+    modal True
+    add "#000000dd"
+    frame:
+        xalign 0.5
+        yalign 0.5
+        xsize 1560
+        background "#000080"
+        padding (50, 40)
+        vbox:
+            spacing 26
+            text "◆ BEFORE YOU FOUND ANYTHING ◆" color "#FFFF55" size 34 xalign 0.5
+            text _("How well do you know business, startups and crypto?") color "#FFFFFF" size 30 xalign 0.5
+            hbox:
+                spacing 40
+                xalign 0.5
+                button:
+                    style "xp_card"
+                    action Return("plain")
+                    default_focus (_preferences.language == "plain")
+                    vbox:
+                        spacing 14
+                        text _("I'M NEW TO THIS") style "xp_card_title" color "#55FF55"
+                        text _("Plain, simple English. Short sentences, fewer idioms. Words are explained as you go, and you get tips before big choices.") style "xp_card_body"
+                        text _("Good if English is not your first language, or if 'multisig' and 'cap table' mean nothing to you yet.") style "xp_card_note"
+                button:
+                    style "xp_card"
+                    action Return("classic")
+                    default_focus (_preferences.language != "plain")
+                    vbox:
+                        spacing 14
+                        text _("I SPEAK FOUNDER") style "xp_card_title" color "#FF55FF"
+                        text _("The original script: fast, dense, and full of in-jokes and jargon. Assumes you know your vesting cliff from your death spiral.") style "xp_card_body"
+                        text _("Good if you've been in a startup, a DAO, or a Discord that should have been a DAO.") style "xp_card_note"
+            text _("Both versions have the same story, choices and endings. Switch any time in Preferences → Story Text.") color "#AAAAAA" size 22 xalign 0.5
+
+style xp_card is button
+style xp_card:
+    xsize 700
+    padding (32, 28)
+    background "#00002a"
+    hover_background "#0000AA"
+style xp_card_title is text:
+    size 34
+style xp_card_body is text:
+    size 25
+    color "#FFFFFF"
+style xp_card_note is text:
+    size 21
+    color "#AAAAAA"

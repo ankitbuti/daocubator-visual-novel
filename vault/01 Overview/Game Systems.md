@@ -45,9 +45,29 @@ Relationships are **governance capital** (Pillar P3): they gate warnings, unlock
 
 Unified version of startupfounders98's "WISDOM UNLOCKED" + daoromance's "PROTOCOL INSIGHT": full-screen PC-98 modal after a consequence lands, with (1) the principle, (2) the real case study + real numbers, (3) link shown in the in-game Codex. Content lives in [[Lessons Index]] notes — **one note = one popup = one Ren'Py screen call**.
 
-## Codex (in-game glossary)
+## Glossary (in-game, collectible)
 
-dao25's 8-entry glossary (DAO, TGE, 51% Attack, Governance Token, Treasury, Vesting, Whale, Fork) + new: Vesting Cliff, 83(b), Multisig, Flash Loan, Legal Wrapper, Chargeback, Recoupment. Unlocks as terms appear in dialogue.
+*Playtest feedback: "unfamiliar terminology."* ~94 terms across five tabs: Business, Crypto & Tech, Money & DeFi, DAO & Governance, Game Stats. The data lives in `game/glossary.rpy`; dao25's original 8 entries are all included. Progress is **persistent**, so it carries across playthroughs, like endings.
+
+- **Meet it in the story → unlock.** Glossary words in dialogue are auto-linked (yellow, underlined), and the first time a line containing one is *shown*, the term unlocks with a "◆ NEW TERM ◆" toast. Words in menu choices are underlined and unlock when the menu appears. Words in Lesson popups are linked too.
+- **Click to read.** Clicking a yellow word opens the Glossary on that entry. You can also press **G**, use the quick menu, use the main/game menu, or click a stat in the HUD.
+- **Explore links → unlock.** Entry text links to other entries. Links to undiscovered entries show as magenta **◇**, and following one unlocks it ("★ NEW DISCOVERY ★"). Some terms (TGE, Phishing, Greenwashing, Blockchain…) can *only* be found this way.
+- **Gamification:**
+  - Locked entries show as `V·····` (first letter + length).
+  - The header shows a progress bar, per-tab counts, and a "◇ via links" counter.
+  - A rank climbs with discoveries: Tourist → Lurker → Anon → Contributor → Core Contributor → Delegate → DAO Elder.
+  - Entries you haven't opened yet are marked NEW.
+- **Option:** Preferences → Glossary → *Link Terms* turns off dialogue links. Terms still unlock.
+- `python3 scripts/check_glossary.py` checks that every link resolves and that every term is reachable from the story, either directly or through links.
+
+## Plain Mode (experience picker)
+
+*Playtest feedback: newcomers and ESL players bounced off the jargon-dense writing.* At **Start**, the player picks:
+
+- **I'M NEW TO THIS → Plain mode:** short sentences, B1-level English, terms explained inline, and **TIP** lines before keystone choices that explain the options neutrally (never which one is "right").
+- **I SPEAK FOUNDER → Original:** the current script, unchanged.
+
+Same story, same choices, same stats, same endings. The player can switch any time under Preferences → Story Text. It's implemented as a Ren'Py language called `plain` (`game/tl/plain/`), so the story logic exists once. Writing rules: [[Plain Mode Style Guide]].
 
 ## Endings
 

@@ -8,11 +8,17 @@ The build output (`web-build/`) is gitignored — it's ~48 MB of WASM/data blobs
 The SDK at `~/renpy-8.5.0-sdk` doesn't ship web support by default. Install it once:
 
 ```bash
-curl -s "http://update.renpy.org/8.5.3/renpy-8.5.3-web.update.gz" -o /tmp/web.update.gz
+curl -s "http://update.renpy.org/8.5.0/renpy-8.5.0-web.update.gz" -o /tmp/web.update.gz
 gzip -dc /tmp/web.update.gz | tar xf - -C ~/renpy-8.5.0-sdk web/
 ```
 
-(If you upgrade the SDK, swap `8.5.3` for the new version — check `renpy.sh --version`.)
+The web runtime version must **exactly match** the SDK (`renpy.sh --version` → 8.5.0 here).
+The launcher checks `web/hash.txt`; a mismatched runtime (e.g. 8.5.3 on an 8.5.0 SDK) fails
+with `TypeError: expected str ... not NoneType` in `build_web`.
+
+On Windows (no `renpy.sh`), run the SDK's bundled Python:
+`~/renpy-8.5.0-sdk/lib/py3-windows-x86_64/python.exe ~/renpy-8.5.0-sdk/renpy.py ~/renpy-8.5.0-sdk/launcher web_build "<abs project path>" --dest "<abs project path>/web-build"`.
+Stop `serve_web.py` first — it holds `web-build/` open and the build can't replace it.
 
 ## Build
 
@@ -44,9 +50,20 @@ Standard options for a Ren'Py web build:
   `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`.
   (GitHub Pages can't set these directly; the build's bundled service worker works around it on most browsers, but itch.io is the path of least resistance.)
 
+## What ships
+
+`game/options.rpy` excludes `vault/`, `research/`, `prototypes/`, `scripts/`, `build/`,
+root `*.md`/`*.txt`/`*.zip` and `game/saves/` from every distribution. Before that, the
+public web `game.zip` contained the whole repo (design docs, research PDFs, the dev's
+persistent file) — and a stale `web-build.zip` from the previous build.
+
 ## Note on automated testing
 
-Automated click-through of the web build (or the desktop app) doesn't work in a
+The Claude desktop app's built-in browser CAN drive the web build: `.claude/launch.json`
+defines a `web-build` server (serve_web.py on :8055). Ren'Py focuses buttons on mouse-move,
+so hover before clicking; the first click on the canvas only gives it focus.
+
+Automated click-through of the desktop app (or a web tab that isn't visible) doesn't work in a
 headless/background sandbox: when the window/tab isn't the OS-foreground surface, the
 engine's event loop is throttled and injected input isn't processed. Verify dialogue/logic
 statically instead — `python3 scripts/lint_dialogue.py` + `renpy.sh . lint` — and click

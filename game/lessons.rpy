@@ -94,12 +94,14 @@ screen lesson_popup(lid):
             text "◆ LESSON LEARNED ◆" color "#FFFF55" size 34 xalign 0.5
             text LESSONS[lid][0] color "#55FFFF" size 30 xalign 0.5
             null height 6
-            text LESSONS[lid][1] color "#FFFFFF" size 26
-            text LESSONS[lid][2] color "#AAAAAA" size 22
+            ## __() translates first (plain mode), then terms get glossary links.
+            text gloss_say_filter(__(LESSONS[lid][1])) color "#FFFFFF" size 26
+            text gloss_say_filter(__(LESSONS[lid][2])) color "#AAAAAA" size 22
             null height 10
             textbutton "▶ CONTINUE" action Return() xalign 0.5 text_color "#55FF55" text_hover_color "#FFFF55"
 
 label lesson(lid):
     $ codex_seen.add(lid)
+    $ gloss_unlock_text(__(LESSONS[lid][1]), __(LESSONS[lid][2]))
     call screen lesson_popup(lid)
     return

@@ -19,7 +19,10 @@ style input:
 
 style hyperlink_text:
     properties gui.text_properties("hyperlink", accent=True)
-    hover_underline True
+    ## Hyperlinks are glossary terms (glossary.rpy): yellow, underlined.
+    color "#FFFF55"
+    hover_color "#FFFFFF"
+    underline True
 
 style gui_text:
     properties gui.text_properties("interface")
@@ -207,9 +210,14 @@ style input:
 screen choice(items):
     style_prefix "choice"
 
+    ## Glossary: terms in choices unlock when the menu appears (glossary.rpy).
+    ## Captions arrive already glossary-linked, which would break the plain-mode
+    ## string lookup — gloss_choice_text unlinks, translates, then underlines.
+    on "show" action Function(gloss_unlock_text, *[gloss_choice_raw(i.caption) for i in items])
+
     vbox:
         for i in items:
-            textbutton i.caption action i.action
+            textbutton gloss_choice_text(i.caption) action i.action
 
 
 style choice_vbox is vbox
@@ -248,12 +256,15 @@ screen quick_menu():
 
             textbutton _("Back") action Rollback()
             textbutton _("History") action ShowMenu('history')
+            textbutton _("Glossary") action ShowMenu('glossary')
             textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
             textbutton _("Auto") action Preference("auto-forward", "toggle")
             textbutton _("Save") action ShowMenu('save')
             textbutton _("Q.Save") action QuickSave()
             textbutton _("Q.Load") action QuickLoad()
             textbutton _("Prefs") action ShowMenu('preferences')
+
+        key "g" action ShowMenu('glossary')
 
 
 ## This code ensures that the quick_menu screen is displayed in-game, whenever
@@ -308,6 +319,8 @@ screen navigation():
             textbutton _("Save") action ShowMenu("save")
 
         textbutton _("Load") action ShowMenu("load")
+
+        textbutton _("Glossary") action ShowMenu("glossary")
 
         textbutton _("Preferences") action ShowMenu("preferences")
 
@@ -756,8 +769,18 @@ screen preferences():
                     textbutton _("After Choices") action Preference("after choices", "toggle")
                     textbutton _("Transitions") action InvertSelected(Preference("transitions", "toggle"))
 
-                ## Additional vboxes of type "radio_pref" or "check_pref" can be
-                ## added here, to add additional creator-defined preferences.
+                ## Story text: "plain" is a Ren'Py language (game/tl/plain/) —
+                ## the ELI5 / ESL-friendly script. None = the original script.
+                vbox:
+                    style_prefix "radio"
+                    label _("Story Text")
+                    textbutton _("Plain") action Language("plain")
+                    textbutton _("Original") action Language(None)
+
+                vbox:
+                    style_prefix "check"
+                    label _("Glossary")
+                    textbutton _("Link Terms") action ToggleField(persistent, "gloss_links")
 
             null height (4 * gui.pref_spacing)
 
@@ -930,7 +953,8 @@ screen history():
 
 ## This determines what tags are allowed to be displayed on the history screen.
 
-define gui.history_allow_tags = { "alt", "noalt", "rt", "rb", "art" }
+## "a" keeps glossary links clickable in History (glossary.rpy).
+define gui.history_allow_tags = { "alt", "noalt", "rt", "rb", "art", "a" }
 
 
 style history_window is empty
@@ -1533,6 +1557,7 @@ screen quick_menu():
             textbutton _("Back") action Rollback()
             textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
             textbutton _("Auto") action Preference("auto-forward", "toggle")
+            textbutton _("Glossary") action ShowMenu("glossary")
             textbutton _("Menu") action ShowMenu()
 
 

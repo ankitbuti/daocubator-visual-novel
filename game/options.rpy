@@ -190,6 +190,19 @@ init python:
     build.classify('**/#**', None)
     build.classify('**/thumbs.db', None)
 
+    ## Design docs, research, tooling and build outputs are not part of the
+    ## game — keep them out of every distribution (incl. the public web zip).
+    build.classify('vault/**', None)
+    build.classify('research/**', None)
+    build.classify('prototypes/**', None)
+    build.classify('scripts/**', None)
+    build.classify('build/**', None)
+    build.classify('web-build/**', None)
+    build.classify('*.zip', None)
+    build.classify('*.md', None)
+    build.classify('*.txt', None)
+    build.classify('game/saves/**', None)
+
     ## To archive files, classify them as 'archive'.
 
     # build.classify('game/**.png', 'archive')
