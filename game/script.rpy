@@ -155,6 +155,8 @@ label start:
     ## "plain" is a Ren'Py language: game/tl/plain/ holds the ELI5/ESL script.
     call screen experience_select
     $ renpy.change_language("plain" if _return == "plain" else None)
+    show screen stats_hud
+
     narrator "{color=#55FF55}TIP:{/color} {color=#FFFF55}{u}Yellow words{/u}{/color} are Glossary terms — click one to look it up. New terms unlock as you meet them, and entries link to more entries. Press G any time."
 
     narrator "2025. The age of DAOs has truly begun — again — for the third or fourth time."
@@ -163,7 +165,6 @@ label start:
     narrator "You're going to be different. Everyone says that."
     python:
         player_name = renpy.input("What do they call you, founder?", default="Kai", length=20).strip() or "Kai"
-    show screen stats_hud
     jump ch1_genesis
 
 ################################################################################
