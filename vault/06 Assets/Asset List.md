@@ -14,11 +14,11 @@ Status legend: ⬜ needed · 🟨 placeholder generated (scripted PIL, in `game/
 | Character | Expressions | Status |
 |-----------|-------------|--------|
 | Maya | neutral, focused, tired, proud, alarmed | 🎨 neutral live (standing in for 5 expressions) |
-| Jordan | neutral, hyped, hurt, determined, exhausted | 🟨 (prompt ready) |
-| Alex | neutral, smirk, calculating, defensive, sincere | 🟨 (prompt ready) |
-| Vera | neutral, wry, stern, warm | 🟨 (prompt ready) |
-| Spectre | hooded-neutral, typing-glow, alert, almost-vulnerable | 🟨 (prompt ready) |
-| Atlas | neutral, generous, guarded, predatory-calm | 🟨 (prompt ready) |
+| Jordan | neutral, hyped, hurt, determined, exhausted | 🎨 neutral live (standing in for 5 expressions) |
+| Alex | neutral, smirk, calculating, defensive, sincere | 🎨 neutral live (standing in for 5 expressions) |
+| Vera | neutral, wry, stern, warm | 🎨 neutral live (standing in for 4 expressions) |
+| Spectre | hooded-neutral, typing-glow, alert, almost-vulnerable | 🎨 neutral live (standing in for 4 expressions) |
+| Atlas | neutral, generous, guarded, predatory-calm | 🎨 neutral live (standing in for 4 expressions) |
 
 = 28 final sprite images (6 bases × expressions).
 

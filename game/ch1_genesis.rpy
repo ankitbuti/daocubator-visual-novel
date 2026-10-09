@@ -73,7 +73,8 @@ label ch1_genesis:
             show jordan determined
             j "Reputation, progressive trust, actual moderation. It's unglamorous and it's everything. On it."
         "\"Growth now, systems later. Momentum is the moat.\"":
-            $ adjust(jordan=-5, vibes=+5, apathy=+1)
+            $ adjust(jordan=-5, vibes=+5)
+            $ apathy += 1
             show jordan hurt
             j "Momentum's great until the first fight. Fine — but I'm writing 'I said this' in the channel topic."
 
