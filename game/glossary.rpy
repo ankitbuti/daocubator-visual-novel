@@ -481,8 +481,8 @@ screen gloss_toast(names, n):
     frame at gloss_toast_appear:
         xalign 1.0
         ypos 70
-        background "#000080ee"
-        padding (24, 12)
+        background Frame("gui/notify.png", gui.notify_frame_borders)
+        padding (32, 14)
         vbox:
             spacing 4
             text ("◆ NEW TERM ◆" if len(names) == 1 else "◆ %d NEW TERMS ◆" % len(names)) color "#FFFF55" size 22
@@ -544,10 +544,10 @@ screen glossary():
 
                 ## Term list
                 frame:
-                    background "#00002acc"
+                    background Frame("gui/button/slot_idle_background.png", gui.slot_button_borders)
                     xsize 470
                     ysize 640
-                    padding (10, 10)
+                    padding (14, 14)
                     viewport:
                         scrollbars "vertical"
                         vscrollbar_unscrollable "hide"
@@ -574,7 +574,7 @@ screen glossary():
 
                 ## Entry detail
                 frame:
-                    background "#000080"
+                    background Frame("gui/frame.png", gui.frame_borders)
                     xsize 880
                     ysize 640
                     padding (36, 28)
@@ -612,14 +612,14 @@ screen glossary():
 style gloss_tab is button
 style gloss_tab_text is button_text
 style gloss_tab:
-    background "#00002a"
-    selected_background "#0000AA"
-    hover_background "#000060"
-    padding (12, 6)
+    background Frame("gui/button/idle_background.png", gui.button_borders)
+    selected_background Frame("gui/button/hover_background.png", gui.button_borders)
+    hover_background Frame("gui/button/hover_background.png", gui.button_borders)
+    padding (14, 8)
 style gloss_tab_text:
     size 20
-    color "#AAAAAA"
-    selected_color "#FFFFFF"
+    color "#94A3B8"
+    selected_color "#FFE57F"
     hover_color "#FFFFFF"
 
 style gloss_item is button
