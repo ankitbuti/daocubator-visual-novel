@@ -35,3 +35,7 @@
 /game/_autotest.rpy
 /web-build.zip
 /*.zip
+prototypes/.DS_Store
+game/.DS_Store
+vault/.DS_Store
+.DS_Store
